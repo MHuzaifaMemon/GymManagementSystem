@@ -1,9 +1,11 @@
 import './App.css';
+import Home from './Pages/Home/home';
 
 function App() {
   return (
-    <div className="text-red-700 text-3xl border-slate-600 border-2">
-      Welcome to Gym Management System
+    <div className="">
+      <Home />
+
     </div>
   );
 }
