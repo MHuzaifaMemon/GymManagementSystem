@@ -4,6 +4,7 @@ import Dashboard from './Pages/Dashboard/dashboard';
 import Home from './Pages/Home/home';
 import { Routes,Route,useNavigate } from 'react-router-dom';
 import { useState,useEffect } from 'react';
+import Member from './Pages/Member/member';
 
 function App() {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />}/>
         <Route path="/dashboard" element={<Dashboard/>}/>
-
+        <Route path="/member" element={<Member/>}/>
       </Routes>
 
     </div>
