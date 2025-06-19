@@ -26,7 +26,10 @@ const Dashboard = () => {
     }
 },[accordianDashboard])
 
-  
+  const handleOnClickMenu = (value)=>{
+    sessionStorage.setItem('func',value);
+  }
+
   return (
     <div className='w-3/4 text-black p-5 relative'>
       <div className='w-full bg-slate-900 text-white rounded-lg flex  p-3 justify-between items-center'>
@@ -53,57 +56,57 @@ const Dashboard = () => {
         </Link>
 
         {/* card block */}
-        <div className='w-full h-fit bg-white rounded-lg cursor-pointer'>
+        <Link to={'/specific/monthly'} onClick={() => handleOnClickMenu('monthlyJoined')} className='w-full h-fit bg-white rounded-lg cursor-pointer'>
           <div className='h-3 rounded-t-lg bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500'></div>
           
           <div className='py-7 px-5 flex-col justify-center items-center w-full text-center rounded-b-lg hover:bg-slate-900 hover:text-white'>
             <SignalCellularAltIcon sx={{color:'purple',fontSize:"50px"}} />
             <p className='text-xl my-3 font-semibold font-mono'>Monthly Joint</p>
           </div>
-        </div>
+        </Link>
 
         {/* card block */}
-        <div className='w-full h-fit bg-white rounded-lg cursor-pointer'>
+        <Link to={'/specific/expire-with-in-3-days'} onClick={() => handleOnClickMenu('threeDayExpire')} className='w-full h-fit bg-white rounded-lg cursor-pointer'>
           <div className='h-3 rounded-t-lg bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500'></div>
           
           <div className='py-7 px-5 flex-col justify-center items-center w-full text-center rounded-b-lg hover:bg-slate-900 hover:text-white'>
             <AccessAlarmIcon sx={{color:'red',fontSize:"50px"}} />
             <p className='text-xl my-3 font-semibold font-mono'>Expiring Within 3 Days</p>
           </div>
-        </div>
+        </Link>
 
 
         {/* card block */}
-        <div className='w-full h-fit bg-white rounded-lg cursor-pointer'>
+        <Link to={'/specific/expire-with-in-4-7-days'} onClick={() => handleOnClickMenu('fourToSevenDaysExpire')} className='w-full h-fit bg-white rounded-lg cursor-pointer'>
           <div className='h-3 rounded-t-lg bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500'></div>
           
           <div className='py-7 px-5 flex-col justify-center items-center w-full text-center rounded-b-lg hover:bg-slate-900 hover:text-white'>
             <AccessAlarmIcon sx={{color:'red',fontSize:"50px"}} />
             <p className='text-xl my-3 font-semibold font-mono'>Expiring Within 4-7 Days</p>
           </div>
-        </div>
+        </Link>
 
 
         {/* card block */}
-        <div className='w-full h-fit bg-white rounded-lg cursor-pointer'>
+        <Link to={'/specific/expired'} onClick={() => handleOnClickMenu('expired')} className='w-full h-fit bg-white rounded-lg cursor-pointer'>
           <div className='h-3 rounded-t-lg bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500'></div>
           
           <div className='py-7 px-5 flex-col justify-center items-center w-full text-center rounded-b-lg hover:bg-slate-900 hover:text-white'>
             <ErrorIcon sx={{color:'red',fontSize:"50px"}} />
-            <p className='text-xl my-3 font-semibold font-mono'>InActive Members</p>
+            <p className='text-xl my-3 font-semibold font-mono'>Expired</p>
           </div>
-        </div>
+        </Link>
 
 
         {/* card block */}
-        <div className='w-full h-fit bg-white rounded-lg cursor-pointer'>
+        <Link to={'/specific/inactive-members'} onClick={() => handleOnClickMenu('inActiveMembers')} className='w-full h-fit bg-white rounded-lg cursor-pointer'>
           <div className='h-3 rounded-t-lg bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500'></div>
           
           <div className='py-7 px-5 flex-col justify-center items-center w-full text-center rounded-b-lg hover:bg-slate-900 hover:text-white'>
             <ReportIcon sx={{color:'brown',fontSize:"50px"}} />
-            <p className='text-xl my-3 font-semibold font-mono'>Joint Members</p>
+            <p className='text-xl my-3 font-semibold font-mono'>InActive Members</p>
           </div>
-        </div>
+        </Link>
 
 
 
