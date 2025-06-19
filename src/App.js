@@ -14,12 +14,12 @@ function App() {
     let isLogedIn = sessionStorage.getItem("isLogin");
     if(isLogedIn){
       setIsLogin(true);
-      navigate('/dashboard')
+      // navigate('/dashboard')
     } 
-    // }else{
+    else{
     //   setIsLogin(false)
-    //   navigate('/');
-    // }
+      navigate('/');
+    }
   },[localStorage.getItem("isLogin")])
 
 
