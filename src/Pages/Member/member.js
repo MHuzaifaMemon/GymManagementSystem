@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import AddIcon from '@mui/icons-material/Add';
 import { Link } from 'react-router-dom';
@@ -7,21 +7,29 @@ import SearchIcon from '@mui/icons-material/Search';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import MemberCard from '../../Components/MemberCard/memberCard';
-// import Modal from '../../Components/Modal/modal';
-// import AddmemberShip from '../../Components/Addmembership/addmemberShip';
-// import Addmembers from '../../Components/Addmembers/addmembers';
-// import axios from 'axios';
-// import { ToastContainer, toast } from 'react-toastify';
+import Modal from '../../Components/Modal/modal';
+import AddmemberShip from '../../Components/Addmemebership/addmembership';
+import Addmembers from '../../Components/Addmembers/addmembers';
+
 const Member = () => {
-    
+    const [addMembership, setAddmemberShip] = useState(false);
+    const [addMember, setAddmember] = useState(false);
+
+    const handleMemberShip = () => {
+        setAddmemberShip(prev => !prev);
+    }
+
+    const handleMembers = () => {
+        setAddmember(prev => !prev);
+    }
     return (
         <div className='text-black p-5 w-3/4 h-[100vh]'>
 
             {/* block for banner */}
             <div className='border-2 bg-slate-900 flex justify-between w-full text-white rounded-lg p-3'>
 
-                <div className='border-2 pl-3 pr-3 pt-1 pb-1 rounded-2xl cursor-pointer hover:bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:text-black' >Add Member <FitnessCenterIcon /> </div>
-                <div className='border-2 pl-3 pr-3 pt-1 pb-1 rounded-2xl cursor-pointer hover:bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:text-black'>Membership <AddIcon /> </div>
+                <div className='border-2 pl-3 pr-3 pt-1 pb-1 rounded-2xl cursor-pointer hover:bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:text-black' onClick={()=>handleMembers()}>Add Member <FitnessCenterIcon /> </div>
+                <div className='border-2 pl-3 pr-3 pt-1 pb-1 rounded-2xl cursor-pointer hover:bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:text-black' onClick={()=>handleMemberShip()}>Membership <AddIcon /> </div>
 
             </div>
 
@@ -60,6 +68,8 @@ const Member = () => {
 
  
             </div>
+            {addMembership && <Modal header="Add Membership" handleClose={handleMemberShip} content={<AddmemberShip />} />}
+            {addMember && <Modal header={"Add New Member"} handleClose={handleMembers} content={<Addmembers />} />}
 
         </div>
     )
