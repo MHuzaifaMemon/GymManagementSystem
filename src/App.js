@@ -16,13 +16,13 @@ function App() {
     let isLogedIn = sessionStorage.getItem("isLogin");
     if(isLogedIn){
       setIsLogin(true);
-      // navigate('/dashboard')
+      
     } 
     else{
-    //   setIsLogin(false)
+      setIsLogin(false)
       navigate('/');
     }
-  },[localStorage.getItem("isLogin")])
+  },[sessionStorage.getItem("isLogin")])
 
 
   return (

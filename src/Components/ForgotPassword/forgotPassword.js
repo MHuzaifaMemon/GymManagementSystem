@@ -3,7 +3,11 @@ const ForgotPassword = () => {
   const [emailSubmit, setEmailSubmit] = useState(false);
   const [otpValidate,setOtpValidate] = useState(false);
   const [contentVal,setContentValue] = useState("Submit Your Email")
-
+  const [inputValue, setInputValue] = useState({
+    email: "",
+    otp: "",
+    newPassword: ""
+  });
 
   const handleSubmit = () => {
     if (!emailSubmit) {
@@ -15,11 +19,22 @@ const ForgotPassword = () => {
 
     }
   }
+
+  const handleOnChange = (event, name) => {     
+    setInputValue({
+        ...inputValue,
+        [name]: event.target.value
+      });
+  }
+  console.log(inputValue);
+
   return (
     <div className="w-full">
       <div className="w-full mb-5">
         <div>Enter Your Email</div>
         <input
+          value={inputValue.email}
+          onChange={(event) => {handleOnChange(event, "email")}}
           type="text"
           className="w-1/2 p-2 rounded-lg border-2 border-slate-400 "
           placeholder="Enter Email"
@@ -30,6 +45,8 @@ const ForgotPassword = () => {
         <div className="w-full mb-5">
           <div>Enter Your OTP</div>
           <input
+            value={inputValue.otp}
+            onChange={(event) => {handleOnChange(event, "otp")}}
             type="text"
             className="w-1/2 p-2 rounded-lg border-2 border-slate-400 "
             placeholder="Enter OTP"
@@ -41,7 +58,9 @@ const ForgotPassword = () => {
         <div className="w-full mb-5">
           <div>Enter Your New Password</div>
           <input
-            type="text"
+            value={inputValue.newPassword}
+            onChange={(event) => {handleOnChange(event, "newPassword")}}
+            type="password"
             className="w-1/2 p-2 rounded-lg border-2 border-slate-400 "
             placeholder="Enter New Password"
           />

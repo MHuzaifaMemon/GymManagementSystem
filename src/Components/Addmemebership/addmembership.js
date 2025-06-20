@@ -1,6 +1,18 @@
-import React from 'react';
+import React,{useState} from 'react';
 
 const AddmemberShip = () => {
+    const [inputfield, setInputField] = useState({
+        month: "",  
+        price: ""
+    });
+
+    const handleOnChange = (event, name) => {
+        setInputField({             
+            ...inputfield,
+            [name]: event.target.value      
+        });
+    }
+    console.log(inputfield);
 
     return (
         <div className='text-black'>
@@ -21,8 +33,10 @@ const AddmemberShip = () => {
             <hr className='mt-10 mb-10'/>
 
             <div className='flex gap-10 mb-10'>
-                <input className='border-2 rounded-lg text-lg w-1/3 h-1/2 p-2' type='number' placeholder='Add No. of Months' />
-                <input className='border-2 rounded-lg text-lg w-1/3 h-1/2 p-2' type='number' placeholder='Add Price' />
+                <input value={inputfield.month} onChange={(event) => handleOnChange(event, "month")} className='border-2 rounded-lg text-lg w-1/3 h-1/2 p-2' type='number' placeholder='Add No. of Months' />
+
+                <input value={inputfield.price} onChange={(event) => handleOnChange(event, "price")} className='border-2 rounded-lg text-lg w-1/3 h-1/2 p-2' type='number' placeholder='Add Price' />
+
                 <div className='text-lg border-2 p-1 w-auto mt-0 rounded-xl cursor-pointer hover:bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 '>Add +</div>
             </div>
         </div >
