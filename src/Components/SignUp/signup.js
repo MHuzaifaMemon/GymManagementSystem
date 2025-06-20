@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import './SignUp.css'
 import Modal from "../Modal/modal";
 import ForgotPassword from '../ForgotPassword/forgotPassword';
+import axios from 'axios';
+import Stack from '@mui/material/Stack';
+import LinearProgress from '@mui/material/LinearProgress';
 
 const SignUp = () => {
     const [forgotPassword, setForgotPassword] = useState(false);
@@ -12,6 +15,7 @@ const SignUp = () => {
         password: '',
         profilePic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQt8GkVX7HB2NMiwXELav_6K7Sen_3ddFvDzw&s'
     });
+    const [loaderImage, setLoaderImage] = useState(false);
 
     const handleClose = () => {
          setForgotPassword(prev => !prev);
@@ -25,6 +29,31 @@ const SignUp = () => {
     }
     console.log(inputFields);
 
+    const uploadImage = async (event) => {
+        setLoaderImage(true);
+        console.log("Inside uploadImage");
+        const file = event.target.files;
+        const data = new FormData();
+        data.append('file', file[0]);
+        // dfkik66ns
+       
+        data.append('upload_preset', 'gym-management');
+        try{
+            const response =await axios.post('https://api.cloudinary.com/v1_1/dfkik66ns/image/upload', data);
+            console.log(response);
+            const imageUrl = response.data.url;
+            setLoaderImage(false);
+            setInputFields({
+                ...inputFields,
+                ['profilePic']: imageUrl
+            });
+          }catch(err){
+          console.error(err);
+          setLoaderImage(false);
+
+        }
+    }
+
   return (
     <div className="customSignup w-1/3 p-10 mt-20 ml-20 bg-gray-50 bg-opacity-50 h-[450px] overflow-y-auto">
       <div className="font-sans text-white text-center text-3xl">Register Your Gym</div>
@@ -32,7 +61,15 @@ const SignUp = () => {
       <input type="text" value={inputFields.gymName} onChange={(event) => handleOnChange(event,"gymName")} className="w-full mb-10 p-2 rounded-lg" placeholder="Enter Gym Name" />
       <input type="text" value={inputFields.userName} onChange={(event) => handleOnChange(event,"userName")} className="w-full mb-10 p-2 rounded-lg" placeholder="Enter User Name" />
       <input type="password" value={inputFields.password} onChange={(event) => handleOnChange(event,"password")} className="w-full mb-10 p-2 rounded-lg" placeholder="Enter password" />
-      <input type="file" className="w-full mb-10 p-2 rounded-lg" />
+      
+      <input type="file" onChange={(e)=>{uploadImage(e)}} className="w-full mb-10 p-2 rounded-lg" />
+      
+      {
+        loaderImage && <Stack sx={{ width: '100%', color: 'gray.500' }} spacing={2}>
+          <LinearProgress color="secondary" />
+        </Stack>
+      }
+
       <img src={inputFields.profilePic} alt="Product preview" className="mb-10 h-[200px] w-[250px]"/>
 
       <div className="p-2 w-[80%] border-2 bg-slate-800 mx-auto rounded-lg text-white text-center text-lg hover:bg-white hover:text-black font-semibold cursor-pointer">Register</div>
