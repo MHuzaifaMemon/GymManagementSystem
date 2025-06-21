@@ -1,8 +1,9 @@
 const express = require('express');
 
 const app = express();
+require('dotenv').config(); // Load environment variables from .env file
 
-const PORT = 4000;
+const PORT = process.env.PORT; // Use PORT from environment 
 
 app.use(express.json());
 require('./DBConn/conn'); // Ensure this file exists and is correctly set up for MongoDB connection
