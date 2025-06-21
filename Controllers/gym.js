@@ -2,6 +2,8 @@ const Gym = require('../Modals/gym');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
+const jwt = require('jsonwebtoken');
+
 
 
 exports.register = async (req, res) => {
@@ -41,6 +43,13 @@ exports.register = async (req, res) => {
     }
 }
 
+const cookieOptions = {
+    httpOnly: true, // Prevents client-side JavaScript from accessing the cookie
+    secure: false, // Set to true if using HTTPS
+    sameSite: 'Lax' // Helps prevent CSRF attacks
+};
+
+
 exports.login = async (req, res) => {
     try{
         const { userName, password } = req.body;
@@ -48,6 +57,11 @@ exports.login = async (req, res) => {
 
         const gym = await Gym.findOne({ userName });
         if (gym && await bcrypt.compare(password, gym.password)) {
+            // Generate a JWT token
+            const token = jwt.sign({ gym_id: gym._id }, process.env.JWT_SecretKey);
+            // Set the token in a cookie
+            res.cookie('cookie_token', token, cookieOptions); // Set the  in a cookie
+
             // Password matches, login successful
                 res.json({
                 message: 'Login successful',
@@ -173,4 +187,9 @@ exports.resetPassword = async (req, res) => {
             error: 'Server error'
         });
     }
+}
+
+
+exports.logout = async (req, res) => {
+    res.clearCookie('cookie_token', cookieOptions).json({message: "Logged Out Successfully"}); // Clear the cookie
 }
