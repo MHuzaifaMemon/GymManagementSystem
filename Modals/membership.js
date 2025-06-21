@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const MembershipSChema = new mongoose.Schema({
-    title: {
-        type: String,
+    months: {
+        type: Number,
         required: true,
     },
     price: {

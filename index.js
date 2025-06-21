@@ -16,9 +16,10 @@ app.get('/', (req, res) => {
 });
 
 const GymRoutes = require('./Routes/gym'); // Ensure this file exists and is correctly set up for routes
+const MembershipRoutes = require('./Routes/membership'); // Ensure this file exists and is correctly set up for routes
 
 app.use('/auth', GymRoutes); // Use the gym routes under the /api/gym path
-
+app.use('/plans', MembershipRoutes); // Use the membership routes under the /api/membership path
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`)
