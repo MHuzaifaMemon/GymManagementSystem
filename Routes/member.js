@@ -5,6 +5,8 @@ const auth = require('../Auth/auth');
 
 router.get('/all-member',auth, MemberController.getAllMembers);
 router.post('/register-member', auth, MemberController.registerMember);
-
+router.get('/searched-members', auth, MemberController.searchMember);
+router.get('/monthly-member', auth, MemberController.monthlyMember);
+router.get('/within-3-days-expiring', auth, MemberController.expiringWithin3Days);
 
 module.exports = router;

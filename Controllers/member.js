@@ -91,3 +91,75 @@ exports.registerMember = async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 }
+
+exports.searchMember = async (req, res) => {
+    try{
+        const { searchTerm } = req.query;
+        const member = await Member.find({
+            gym: req.gym._id,
+            $or: [
+                { name: { $regex: '^' + searchTerm, $options: 'i' } },
+                { mobileNo: { $regex: '^' + searchTerm, $options: 'i' } }
+            ]
+        });
+        res.status(200).json({
+            message: member.length ? "Members found" : "No members found",
+            members: member,
+            totalMembers: member.length
+        });
+        
+
+    }catch(error){
+        console.error("Error searching members:", error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
+exports.monthlyMember = async (req, res) => {
+    try{
+        const now = new Date();
+        const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+        const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0,23,59,59,999); // Last day of the month
+
+        const members = await Member.find({
+            gym: req.gym._id,
+            createdAt: {
+                $gte: startOfMonth,
+                $lte: endOfMonth
+            }
+        }).sort({ createdAt: -1 });
+        res.status(200).json({
+            message: members.length ? "Monthly members fetched successfully" : "No members registered this month",
+            members: members,
+            totalMembers: members.length
+        });
+
+    }catch(error){
+        console.error("Error fetching monthly members:", error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
+exports.expiringWithin3Days = async (req, res) => {
+    try{
+        const today = new Date();
+        const nextThreeDays = new Date();
+        nextThreeDays.setDate(today.getDate() + 3);
+        const members = await Member.find({
+            gym: req.gym._id,
+            nextBillDate: {
+                $gte: today,
+                $lte: nextThreeDays
+            }
+        });
+        res.status(200).json({
+            message: members.length ? "Expiring members fetched successfully" : "No members expiring within 3 days",
+            members: members,
+            totalMembers: members.length
+        });
+
+    }catch(error){
+        console.error("Error fetching expiring members:", error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}

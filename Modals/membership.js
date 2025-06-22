@@ -15,7 +15,9 @@ const MembershipSChema = new mongoose.Schema({
         required: true
     }
 
-})
+},{
+    timestamps: true
+});
 
 const modalMembership = mongoose.model('membership', MembershipSChema);
 

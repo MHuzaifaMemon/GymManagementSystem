@@ -39,6 +39,8 @@ const memberSchema = new mongoose.Schema({
     },
 
 
+},{
+    timestamps: true
 });
 
 const memberModal = mongoose.model('member', memberSchema);
