@@ -163,3 +163,68 @@ exports.expiringWithin3Days = async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 }
+
+exports.expiringWithin4To7Days = async (req, res) => {
+    try{
+        const today = new Date();
+        const next4Days = new Date();
+        next4Days.setDate(today.getDate() + 4);
+        const next7Days = new Date();
+        next7Days.setDate(today.getDate() + 7);
+        const members = await Member.find({
+            gym: req.gym._id,
+            nextBillDate: {
+                $gte: next4Days,
+                $lte: next7Days
+            }
+        });
+
+        res.status(200).json({
+            message: members.length ? "Members expiring within 4 to 7 days fetched successfully" : "No members expiring within 4 to 7 days",
+            members: members,
+            totalMembers: members.length
+        }); 
+        
+        
+
+    }catch(error){
+        console.error("Error fetching members expiring within 4 to 7 days:", error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
+exports.expiredMember = async (req, res) => {
+    try{
+        const today = new Date();
+        const members = await Member.find({
+            gym: req.gym._id,
+            status: 'active', // Assuming you have a status field to check if the member is active
+            nextBillDate: { $lt: today }
+        });
+        res.status(200).json({
+            message: members.length ? "Expired members fetched successfully" : "No expired members found",
+            members: members,
+            totalMembers: members.length
+        });
+    }catch(error){
+        console.error("Error fetching expired members:", error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
+exports.inActiveMember = async (req, res) => {
+    try{
+        const members = await Member.find({
+            gym: req.gym._id,
+            status: 'Pending' // Assuming 'Pending' status indicates inactive members
+        }); 
+        res.status(200).json({
+            message: members.length ? "Inactive members fetched successfully" : "No inactive members found",
+            members: members,
+            totalMembers: members.length
+        });
+    }catch(error){
+        console.error("Error fetching inactive members:", error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
