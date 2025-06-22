@@ -41,11 +41,11 @@ const Sidebar = () => {
   return (
     <div className='w-1/4 h-[100vh] border-2 bg-black text-white p-5 font-extralight'>
         <div className='text-center text-3xl'>
-            Power Zone
+            {localStorage.getItem('gymName')}
         </div>
         <div className='flex gap-5 my-5'>
             <div className='w-[100px] h-[100px] rounded-lg'>
-                <img alt= "Gym pic " className='w-full h-full rounded-full' src="https://img.freepik.com/premium-vector/man-woman-doing-exercises-with-dumbbells_1135277-9581.jpg" />
+                <img alt= "Gym pic " className='w-full h-full rounded-full' src={localStorage.getItem("gymPic")} />
             </div>
             <div>
                 <div className='text-2xl'>{greeting}</div>
