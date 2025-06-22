@@ -5,6 +5,7 @@ import ForgotPassword from '../ForgotPassword/forgotPassword';
 import axios from 'axios';
 import Stack from '@mui/material/Stack';
 import LinearProgress from '@mui/material/LinearProgress';
+import { toast,ToastContainer } from 'react-toastify';
 
 const SignUp = () => {
     const [forgotPassword, setForgotPassword] = useState(false);
@@ -25,9 +26,8 @@ const SignUp = () => {
         setInputFields({
             ...inputFields,
             [name]: event.target.value
-        });
+        })
     }
-    console.log(inputFields);
 
     const uploadImage = async (event) => {
         setLoaderImage(true);
@@ -54,6 +54,18 @@ const SignUp = () => {
         }
     }
 
+
+    const handleRegister = async () => {
+      await axios.post('http://127.0.0.1:4000/auth/register', inputFields).then((response) => {
+        const successMsg = response.data.message;
+        toast.success(successMsg);
+        
+      }).catch(err=>{
+            const errorMessage = err.response.data.error
+            toast.error(errorMessage)
+          })
+    }
+
   return (
     <div className="customSignup w-1/3 p-10 mt-20 ml-20 bg-gray-50 bg-opacity-50 h-[450px] overflow-y-auto">
       <div className="font-sans text-white text-center text-3xl">Register Your Gym</div>
@@ -72,9 +84,10 @@ const SignUp = () => {
 
       <img src={inputFields.profilePic} alt="Product preview" className="mb-10 h-[200px] w-[250px]"/>
 
-      <div className="p-2 w-[80%] border-2 bg-slate-800 mx-auto rounded-lg text-white text-center text-lg hover:bg-white hover:text-black font-semibold cursor-pointer">Register</div>
+      <div className="p-2 w-[80%] border-2 bg-slate-800 mx-auto rounded-lg text-white text-center text-lg hover:bg-white hover:text-black font-semibold cursor-pointer" onClick={()=>handleRegister()}>Register</div>
       <div className="p-2 w-[80%] border-2 mt-5 bg-slate-800 mx-auto rounded-lg text-white text-center text-lg hover:bg-white hover:text-black font-semibold cursor-pointer" onClick={()=>handleClose()}>Forgot Password</div>
        {forgotPassword && <Modal header="Forgot Password" handleClose={handleClose} content={<ForgotPassword/>}/>}
+      <ToastContainer />
     </div>
   );
 };

@@ -66,7 +66,8 @@ exports.login = async (req, res) => {
                 res.json({
                 message: 'Login successful',
                 success: "ture",
-                gym
+                gym,
+                token
             });
         }else{   
             res.status(400).json({

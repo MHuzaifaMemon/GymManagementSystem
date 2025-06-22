@@ -1,11 +1,16 @@
 const express = require('express');
-
 const app = express();
 const cookieParser = require('cookie-parser'); 
+const cors = require('cors'); // Import cors for handling CORS issues
+
 require('dotenv').config(); // Load environment variables from .env file
 
 const PORT = process.env.PORT; // Use PORT from environment 
 
+app.use(cors({
+  origin: "http://localhost:3000",
+  credentials: true 
+})) // Use CORS middleware to allow cross-origin requests
 
 app.use(cookieParser()); // Middleware to parse cookies
 app.use(express.json());
