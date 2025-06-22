@@ -228,3 +228,73 @@ exports.inActiveMember = async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 }
+
+exports.getMemberDetails = async (req, res) => {
+    try{
+        const {id}= req.params;
+        const member = await Member.findOne({ _id: id, gym: req.gym._id });
+        if(!member){
+            return res.status(400).json({ error: 'Member not found' });
+        }
+        res.status(200).json({
+            message: "Member details fetched successfully",
+            member: member
+        });
+    }catch(error){
+        console.error("Error fetching member details:", error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
+exports.changeStatus = async (req, res) => {
+    try{
+        const {id} = req.params;
+        const {status} = req.body;
+        const member = await Member.findOne(
+            { _id: id, gym: req.gym._id }
+        );
+        if(!member){
+            return res.status(400).json({ error: 'Member not found' });
+        }
+        member.status = status;
+        await member.save();
+        res.status(200).json({
+            message: 'Member status updated successfully',
+            // member: member
+        });
+    }catch(error){
+        console.error("Error updating member status:", error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
+exports.updateMemberPlan = async (req, res) => {  
+    try{
+        const {membership} = req.body;
+        const {id} = req.params;
+        const memberShip = await Membership.findOne({gym: req.gym._id, _id: membership});
+        if(memberShip){
+            let getMonth = memberShip.months;
+            let today = new Date(); 
+            let nextBillDate = addMonthsToDate(getMonth, today);
+            const member = await Member.findOne({ gym: req.gym._id,_id: id });
+            if(!member){
+                return res.status(409).json({ error: 'Member not found' });
+            }
+            member.nextBillDate = nextBillDate;
+            member.lastPayment = today;
+
+            await member.save();
+            res.status(200).json({
+                message: 'Member plan updated successfully',
+                member
+            });
+        }else{
+            return res.status(409).json({ error: 'Membership not found' });
+        }
+
+    }catch(error){
+        console.error("Error updating member plan:", error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
