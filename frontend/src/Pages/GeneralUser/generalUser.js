@@ -2,10 +2,12 @@ import React,{useEffect,useState } from 'react'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Link } from 'react-router-dom';
 import MemberCard from '../../Components/MemberCard/memberCard';
-
+import { getMonthlyJoined,threeDayExpire,fourToSevenDaysExpire,expired,inActiveMembers } from './data';
 
 const GeneralUser = () => {
      const [header, setHeader] = useState("");
+     const [data, setData] = useState([]);
+
     useEffect(() => {
         const func = sessionStorage.getItem('func');
         functionCall(func)
@@ -17,26 +19,36 @@ const GeneralUser = () => {
             case "monthlyJoined":
 
                 setHeader("Monthly Joined Members")
+                var datas = await getMonthlyJoined();
+                setData(datas.members);
                 break;
 
             case "threeDayExpire":
 
                 setHeader("Expring In 3 Days Members")
+                var datas = await threeDayExpire();
+                setData(datas.members);
                 break;
 
             case "fourToSevenDaysExpire":
 
                 setHeader("Expring In 4-7 Days Members")
+                var datas = await fourToSevenDaysExpire();
+                setData(datas.members);
                 break;
 
             case "expired":
 
                 setHeader("Expired Members")
+                var datas = await expired();
+                setData(datas.members);
                 break;
 
             case "inActiveMembers":
 
                 setHeader("InActive Members")
+                var datas = await inActiveMembers();
+                setData(datas.members);
                 break;
 
         }
@@ -55,10 +67,11 @@ const GeneralUser = () => {
             </div>
 
             <div className='bg-slate-100 p-5 mt-5 rounded-lg grid gap-2 md:grid-cols-3 overflow-x-auto h-[80%]'>
-                <MemberCard />
-                <MemberCard />
-                <MemberCard />
-                <MemberCard />
+                {
+                    data.map((item,index) => {
+                        return <MemberCard item={item} />
+                    })
+                }
 
             </div>
 
