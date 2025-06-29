@@ -1,11 +1,10 @@
-import React, { useState, useEffect, use } from "react";
+import React, { useState, useEffect } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router-dom";
 import Switch from "react-switch";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
-import { set } from "mongoose";
 
 const MemberDetail = () => {
   const [status, setStatus] = useState("Pending");
@@ -143,6 +142,7 @@ const fetchMembership = async () => {
             <img
               src={data?.profilePic}
               className="w-full  mx-auto"
+              alt="Profile"
             />
           </div>
           <div className="w-2/3 mt-5 text-xl p-5">
