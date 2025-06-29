@@ -128,7 +128,7 @@ const Member = () => {
 
  
             </div>
-            {addMembership && <Modal header="Add Membership" handleClose={handleMemberShip} content={<AddmemberShip />} />}
+            {addMembership && <Modal header="Add Membership" handleClose={handleMemberShip} content={<AddmemberShip handleClose={handleMemberShip}/>} />}
             {addMember && <Modal header={"Add New Member"} handleClose={handleMembers} content={<Addmembers />} />}
 
         </div>

@@ -21,6 +21,7 @@ exports.addMembership = async (req, res) => {
             await newMembership.save();
             res.status(200).json({
                 message: 'Membership added successfully',
+                data: newMembership
             });
         }
     }catch (err) {
