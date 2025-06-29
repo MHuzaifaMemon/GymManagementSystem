@@ -3,11 +3,12 @@ import axios from "axios";
 import Stack from "@mui/material/Stack";
 import LinearProgress from "@mui/material/LinearProgress";
 import { toast, ToastContainer } from "react-toastify";
+import { set } from "mongoose";
 
 const Addmembers = () => {
   const [inputField, setInputField] = useState({
     name: "",
-    mobile: "",
+    mobileNo: "",
     address: "",
     membership: "",
     joiningDate: "",
@@ -127,31 +128,49 @@ const Addmembers = () => {
     });
 
   };
-const handleRegisterButton = async () => {
-  const token = localStorage.getItem("token");
 
-  if (!token) {
-    toast.error("No authentication token found. Please log in.");
-    return;
-  }
+  const handleRegisterButton = async () => {
+  try {
+    const token = localStorage.getItem("token"); // Get token from localStorage
 
-  await axios.post('http://localhost:4000/members/register-member', inputField, {
-    withCredentials: true,
-    headers: {
-      Authorization: `Bearer ${token}`
+    if (!token) {
+      toast.error("No authentication token found. Please log in.");
+      return;
     }
-  })
-    .then(() => {
-      toast.success("Added Successfully");
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
-    })
-    .catch(err => {
-      console.log(err);
-      toast.error("Something Went Wrong");
-    });
+
+    await axios.post(
+      "http://127.0.0.1:4000/members/register-member",
+      inputField,
+      {
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${token}`, // Authorization header
+        }
+      }).then((response) => {
+        toast.success(response.data.message || "Member registered successfully!");
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      })
+      .catch((err) => {
+        console.log(err);
+        if (err.response && err.response.status === 401) {
+          toast.error("Unauthorized. Please log in again.");
+        } else if (err.response && err.response.data && err.response.data.error) {
+          toast.error(err.response.data.error);
+        } else {
+          toast.error("Error registering member. Please check server.");
+        }
+      });
+
+  } catch (err) {
+    console.log(err);
+    toast.error("Something went wrong while processing.");
+  }
 };
+
+
+
 
   return (
     <div className="text-black>">
@@ -164,8 +183,8 @@ const handleRegisterButton = async () => {
           placeholder="Name of the Joinee"
         />
         <input
-          value={inputField.mobile}
-          onChange={(event) => handleOnChange(event, "mobile")}
+          value={inputField.mobileNo}
+          onChange={(event) => handleOnChange(event, "mobileNo")}
           type="text"
           className="border-2 w-[90%] pl-3 pr-3 pt-2 pb-2 border-slate-400 rounded-md h-12"
           placeholder="Mobile No"
