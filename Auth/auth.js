@@ -20,7 +20,7 @@
 // module.exports = auth;
 // // This middleware checks for a valid JWT token in the request cookies.
 
-const Gym = require('../Modals/gym');
+const Gym = require('../../Modals/gym');
 const jwt = require('jsonwebtoken');
 
 const auth = async (req, res, next) => {
