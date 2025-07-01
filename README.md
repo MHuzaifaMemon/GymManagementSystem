@@ -2,7 +2,7 @@
 
 A full-stack Gym Management System designed to simplify the daily operations of fitness centers. This system provides a centralized platform for managing gym members, tracking memberships, and streamlining administrative tasks with a clean and interactive user interface.
 
-# Key Features
+## Key Features
 Member Registration and Management
 Membership Tracking
 Secure Login System
@@ -11,19 +11,20 @@ Interactive Dashboard
 Modern, responsive UI with Tailwind CSS
 Scalable structure for future enhancements
 
-# Target Users
+## Target Users
 Gym Owners & Administrators
 
 Fitness Center Staff
 
 Receptionists
 
-# Getting Started
+## Getting Started
 
 ## Frontend Setup (React + Tailwind CSS)
 
 ### `cd frontend`
 ### `npm install`
+
 ## Available Scripts
 In the project directory, you can run:
 ### `npm start`
@@ -43,12 +44,12 @@ The backend server will run at [http://localhost:5000](http://localhost:5000) (o
 
 Note: Ensure .env file is properly configured for database connections and other environment variables.
 
-# Tech Stack
-## Frontend: 
+## Tech Stack
+### Frontend: 
 React, Tailwind CSS
 
-## Backend: 
+### Backend: 
 Node.js, Express 
 
-## Database: 
+### Database: 
 MongoDB
