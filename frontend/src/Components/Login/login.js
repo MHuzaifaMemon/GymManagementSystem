@@ -51,8 +51,8 @@ const Login = () => {
         className="w-full mb-10 p-2 rounded-lg"
         placeholder="Enter password"
       />
-
-      <div className="p-2 w-[80%] border-2 bg-slate-800 mx-auto rounded-lg text-white text-center text-lg hover:bg-white hover:text-black font-semibold cursor-pointer" onClick={()=>{handleLogin()}}>
+{/* p-2 w-[80%] border-2 bg-slate-800 mx-auto rounded-lg text-white text-center text-lg hover:bg-white hover:text-black font-semibold cursor-pointer */}
+      <div className="p-2 w-[80%] bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-pink-600 hover:via-purple-600 hover:to-indigo-600 mx-auto rounded-xl text-white text-center text-lg font-bold cursor-pointer shadow-xl transform hover:scale-105 active:scale-95 transition-all duration-300" onClick={()=>{handleLogin()}}>
         Login
       </div>
       <ToastContainer />

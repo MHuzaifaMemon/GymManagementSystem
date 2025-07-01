@@ -84,8 +84,8 @@ const SignUp = () => {
 
       <img src={inputFields.profilePic} alt="Product preview" className="mb-10 h-[200px] w-[250px]"/>
 
-      <div className="p-2 w-[80%] border-2 bg-slate-800 mx-auto rounded-lg text-white text-center text-lg hover:bg-white hover:text-black font-semibold cursor-pointer" onClick={()=>handleRegister()}>Register</div>
-      <div className="p-2 w-[80%] border-2 mt-5 bg-slate-800 mx-auto rounded-lg text-white text-center text-lg hover:bg-white hover:text-black font-semibold cursor-pointer" onClick={()=>handleClose()}>Forgot Password</div>
+      <div className="p-2 w-[80%] bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-pink-600 hover:via-purple-600 hover:to-indigo-600 mx-auto rounded-xl text-white text-center text-lg font-bold cursor-pointer shadow-xl transform hover:scale-105 active:scale-95 transition-all duration-300" onClick={()=>handleRegister()}>Register</div>
+      <div className="p-2 w-[80%] bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-pink-600 hover:via-purple-600 hover:to-indigo-600 mx-auto rounded-xl text-white text-center text-lg font-bold cursor-pointer shadow-xl transform hover:scale-105 active:scale-95 transition-all duration-300 mt-5" onClick={()=>handleClose()}>Forgot Password</div>
        {forgotPassword && <Modal header="Forgot Password" handleClose={handleClose} content={<ForgotPassword/>}/>}
       <ToastContainer />
     </div>

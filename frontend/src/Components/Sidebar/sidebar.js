@@ -49,7 +49,7 @@ const Sidebar = () => {
             </div>
             <div>
                 <div className='text-2xl'>{greeting}</div>
-                <div className='text-xl mt-1 font-semibold'>admin</div>
+                <div className='text-xl mt-1 font-semibold'>Gym Admin</div>
             </div>
         </div>
 

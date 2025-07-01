@@ -119,12 +119,11 @@ const ForgotPassword = () => {
           />
         </div>
       )}
-
-      <div className="bg-slate-800 text-white mx-auto w-2/3 p-3 rounded-lg text-center font-semibold cursor-pointer border-2 hover:bg-white hover:text-black" onClick={() => handleSubmit()}> {contentVal}</div>
+      <div className="p-2 w-2/3 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 hover:from-pink-600 hover:via-purple-600 hover:to-indigo-600 mx-auto rounded-xl text-white text-center text-lg font-bold cursor-pointer shadow-xl transform hover:scale-105 active:scale-95 transition-all duration-300 mt-5" onClick={() => handleSubmit()}> {contentVal}</div>
       {loader && <Loader/>}
-      <ToastContainer />
+      <ToastContainer /> 
 </div>
-  );
+  ); 
 };
 
 export default ForgotPassword;
