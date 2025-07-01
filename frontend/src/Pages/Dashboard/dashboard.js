@@ -113,7 +113,7 @@ const Dashboard = () => {
       </div>
 
       <div className='md: bottom-4 p-4 w-3/4 md:mb-0 absolute bg-black text-white mt-20 rounded-xl text-xl '>
-          Contact Developer for any Technical Error at +92 314 7780058
+          Contact Developer (Muhammad Huzaifa) for any Technical Error at +92 314 7780058
       </div>
 
    </div>
